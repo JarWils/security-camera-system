@@ -53,17 +53,32 @@ Responsible for:
 - Managing recording and storage.
 - Providing centralised security monitoring.
 
-## Hardware
+## Hardware Architecture
 
-| Component | Purpose |
-|---|---|
-| ESP Microcontroller | Camera control, wireless communication, and power management |
-| Camera Sensor | Image and video acquisition |
-| PIR Sensor | Low-power motion detection |
-| Operational Amplifier | PIR signal amplification and filtering |
-| Comparator | Digital motion detection output |
-| Raspberry Pi Cluster | Video processing, storage, and monitoring |
-| Power Management Circuit | Regulated power supply and low-power operation |
+The system uses a distributed architecture with a low-power wireless camera node and a central Raspberry Pi processing cluster.
+
+| Component | Selection | Function |
+|---|---|---|
+| Main processor | ESP32-P4 | Camera control and video encoding |
+| Wireless processor | ESP32-C6 | 2.4 GHz Wi-Fi 6 communication |
+| Development camera | Raspberry Pi Camera Module 3 | Initial camera testing |
+| Final camera | Raspberry Pi Camera Module 3 NoIR | Infrared-sensitive video capture |
+| Motion detection | PIR sensor | Detect motion during standby |
+| Signal conditioning | Custom op-amp and comparator circuit | Amplify, filter and digitise the PIR signal |
+| Night vision | IR LED illuminator | Illuminate the scene in darkness |
+| Processing | Raspberry Pi 5 cluster | Video analysis, recording and storage |
+| PCB | Custom-designed PCB | Hardware integration and power management |
+
+### System Operation
+
+1. The PIR detection circuit remains active while the camera node is in deep sleep.
+2. Detected motion generates a wake-up signal for the ESP32-P4.
+3. The ESP32-P4 activates the camera and captures video.
+4. The ESP32-C6 transmits video over Wi-Fi to the Raspberry Pi cluster.
+5. The Raspberry Pi cluster processes and stores the footage.
+6. The camera node returns to deep sleep after completing the event.
+
+**Design status:** Component architecture selected. Electrical design and performance validation are pending.
 
 ## Software and Technologies
 
