@@ -54,20 +54,16 @@ The PIR subsystem will use a custom analogue signal-conditioning circuit to dete
 
 ### 4.1 Sensor and Analogue Components
 
-| Component | Manufacturer Part Number | Quantity | Purpose |
-|---|---|---:|---|
-| PIR sensor | Murata IRA-S210ST01 | 3 | Pyroelectric motion detection |
-| Fresnel lens | Murata IML-0686 | 3 | Infrared focusing and detection coverage |
-| Quad operational amplifier | Microchip MCP6044-I/P | 2 | Signal amplification and filtering |
-| Dual comparator | Microchip MCP6542-E/P | 2 | Digital threshold detection |
-| 1 MΩ resistor | KOA MF1/4DCT52A1004F | 10 | High-value resistive networks |
-| 100 kΩ multi-turn trimmer | Nidec CT-94EX104 | 4 | Adjustable gain or threshold networks |
-| Resistor assortment | Velleman K/RES-E12 | 1 kit | Circuit prototyping |
-| Ceramic capacitor assortment | Velleman K/CAP1 | 1 kit | Circuit prototyping |
-| 0.33 µF film capacitor | TDK B32521C1334J000 | 10 | Analogue RC filtering |
-| 0.47 µF film capacitor | KEMET R82DC3470Z360J | 10 | Analogue RC filtering |
+| Component | Part / Specification | Purpose |
+|---|---|---|
+| PIR sensor | Murata IRA-S210ST01 | Detects changes in infrared radiation caused by motion |
+| Fresnel lens | Murata IML-0686 | Defines the PIR sensor's detection coverage |
+| Quad operational amplifier | Microchip MCP6044 | Amplifies and filters the PIR signal |
+| Dual comparator | Microchip MCP6542 | Converts the conditioned signal into a digital wake-up output |
+| Resistors | 1 MΩ and other values to be determined | Signal biasing, gain and comparator thresholds |
+| Capacitors | 0.33 µF and 0.47 µF candidates; final values to be determined | Analogue filtering and supply decoupling |
 
-*Quantities are from the original Element14 shopping basket and represent prototyping purchases, not the final per-camera bill of materials.*
+Component values and package selections will be finalised during circuit simulation and schematic design.
 
 ### 4.2 PIR Circuit Architecture
 
@@ -81,7 +77,7 @@ PIR Sensor → Operational Amplifier → Analogue Filtering → Comparator → E
 - Continuous low-power motion monitoring
 - Amplification of low-level PIR signals
 - Band-pass filtering to reduce noise
-- Adjustable motion detection threshold
+- Defined motion detection threshold
 - Comparator hysteresis to prevent false triggering
 - Digital wake-up signal compatible with ESP32-P4 GPIO
 - Minimal quiescent current consumption
@@ -133,7 +129,7 @@ A custom PCB will integrate the ESP32-P4, ESP32-C6, PIR analogue circuitry, came
 | Wireless processor | ESP32-C6 | Selected |
 | Camera connection | MIPI CSI-2 FPC interface | Proposed |
 | Wi-Fi antenna | PCB or external antenna | Undecided |
-| PIR analogue front end | MCP6044 + MCP6542 | Selected for prototyping |
+| PIR analogue front end | MCP6044 + MCP6542 | Selected; circuit design pending |
 | Power distribution | Multiple controlled power domains | To be designed |
 | Programming / debugging | UART / USB / JTAG as applicable | To be designed |
 
